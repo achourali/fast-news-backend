@@ -7,7 +7,7 @@ export class AppService {
   constructor() {
   }
 
-
+  
   getHello(): any {
     return {"data":"Hello World!"};
   }

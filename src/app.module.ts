@@ -7,7 +7,7 @@ import { User } from './api/entities/User.entity';
 import { UsersModule } from './api/users/users.module';
 import { AuthModule } from './api/auth/auth.module';
 import { NewsModule } from './api/news/news.module';
-
+  
 @Module({
   imports: [
     TypeOrmModule.forRoot({
