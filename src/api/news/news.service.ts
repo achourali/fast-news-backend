@@ -4,6 +4,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const pug = require('pug');
 import { fileURLToPath } from 'url';
+//might cause error with name
 const Promise = require('bluebird');
 const pdf = Promise.promisifyAll(require('html-pdf'));
 
@@ -47,7 +48,7 @@ export class NewsService {
     await browser.close();
     return twitterIds;
   }
-
+//reddit getter
   async getRedditPosts(
     topic,
   ): Promise<Array<{ community: string; reference: string }>> {
@@ -82,7 +83,7 @@ export class NewsService {
     await browser.close();
     return elementsIds;
   }
-
+//pdf createion
   async createPdf(topic, pdfName) {
     let pdfPath = `/tmp/${pdfName}.pdf`;
 
