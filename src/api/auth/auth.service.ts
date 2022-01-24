@@ -50,15 +50,15 @@ export class AuthService {
     const user = this.jwtService.verify(token, {
       ignoreExpiration: true,
     });
-    if (Date.now() > (user.exp + jwtConstants.expiresIn) * 1000) {
+    if (Date.now() > (user.exp + jwtConstants.expiresIn) * 1000) {                  
       throw new UnauthorizedException('Token expired');
-    }
-    delete user.iat;
-    delete user.exp;
+    }        
+    delete user.iat;         
+    delete user.exp;              
     return this.generateToken(user);
   }
 
-  async logout() {
+  async logout() {            
     // Remove token
-  }
+  }           
 }
