@@ -1,0 +1,52 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.js"></script>
+
+<style>.container{margin:auto;width: 50%;padding: 10px;}body{background-image: url('file://#{backgroundPath}');}</style>
+
+
+body(class="container")
+    
+    h2(class="ui block header" style="color:#1DA1F2;")
+        i(class="twitter icon")
+        div(class="content") Top tweets
+    
+
+
+
+
+    each tweetId in twitterIds
+    
+        div(class="ui primary card")
+            div(class="ui horizontal divider header content" style="font-size: xx-small;")
+                i(class="external alternate icon")
+                a(href="https://twitter.com/i/status/"+tweetId) Click to visit tweet   
+            
+                    
+            div(class="image")
+                img(src="file:///tmp/"+tweetId+".png")
+        
+
+ 
+    h2(class="ui block header" style="color:#FF5700;")
+        i(class="reddit icon")
+        div(class="content") Top reddit posts
+    
+
+
+
+
+    each redditId in redditIds
+    
+        div(class="ui primary card")
+            div(class="ui horizontal divider header conten" style="font-size: xx-small;")
+                i(class="external alternate icon")
+                a(href="https://www.reddit.com/r/"+redditId.community+"/comments/"+redditId.reference+"/covid_status_tunisia/") Click to visit post   
+            
+                    
+            div(class="image")
+                img(src="file:///tmp/"+redditId.community+redditId.reference+".png")
+        
+
+
