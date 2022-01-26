@@ -3,24 +3,21 @@ import path, { dirname } from 'path';
 const puppeteer = require('puppeteer');
 const fs = require('fs')
 const pug = require('pug');
-const pdf = require('html-pdf');
 import { fileURLToPath } from 'url';
-
+const Promise = require('bluebird');
+const pdf = Promise.promisifyAll(require('html-pdf'));
 
 @Injectable()
 export class NewsService {
 
-    async getNews(keywords) {
-        this.createPdf(keywords)
-        return 'done'
-    }
+    
 
 
     async getTweets(keywords): Promise<Array<string>> {
         let url = `https://twitter.com/search?q=${encodeURI(keywords)}&src=typed_query&f=top`
         const browser = await puppeteer.launch({ executablePath: "/usr/bin/google-chrome" });
         const page = await browser.newPage();
-        await page.setViewport({ width: 800, height: 2000 })
+        await page.setViewport({ width: 800, height: 900 })
         await page.goto(url, { waitUntil: 'networkidle0' });
         await page.evaluate(() => {
 
@@ -94,16 +91,20 @@ export class NewsService {
             redditIds: redditIds,
             backgroundPath: __dirname + '/back1.jpeg'
         });
-        
+
 
 
         let options = { format: 'A4', localUrlAccess: true };
 
+        let pdfPath = '/tmp/zzz.pdf';
 
-        pdf.create(html, options).toFile('/tmp/zzz.pdf', function (err, res) {
-            if (err) return console.log(err);
-            console.log(res);
-        });
+
+        
+
+        await pdf.createAsync(html, { format: 'A4', localUrlAccess: true, filename:pdfPath })
+
+
+        return pdfPath;
 
 
     }
