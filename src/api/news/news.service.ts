@@ -13,8 +13,8 @@ export class NewsService {
     
 
 
-    async getTweets(keywords): Promise<Array<string>> {
-        let url = `https://twitter.com/search?q=${encodeURI(keywords)}&src=typed_query&f=top`
+    async getTweets(topic): Promise<Array<string>> {
+        let url = `https://twitter.com/search?q=${encodeURI(topic)}&src=typed_query&f=top`
         const browser = await puppeteer.launch({ executablePath: "/usr/bin/google-chrome" });
         const page = await browser.newPage();
         await page.setViewport({ width: 800, height: 900 })
@@ -51,9 +51,9 @@ export class NewsService {
 
 
 
-    async getRedditPosts(keywords): Promise<Array<{ community: string, reference: string }>> {
+    async getRedditPosts(topic): Promise<Array<{ community: string, reference: string }>> {
 
-        let url = `https://www.reddit.com/search/?q=${encodeURI(keywords)}`
+        let url = `https://www.reddit.com/search/?q=${encodeURI(topic)}`
         const browser = await puppeteer.launch({ executablePath: "/usr/bin/google-chrome" });
         const page = await browser.newPage();
         await page.setViewport({ width: 800, height: 900 })
@@ -78,10 +78,10 @@ export class NewsService {
 
 
 
-    async createPdf(keywords) {
+    async createPdf(topic,user) {
 
-        let twitterIds = await this.getTweets(keywords);
-        let redditIds = await this.getRedditPosts(keywords);
+        let twitterIds = await this.getTweets(topic);
+        let redditIds = await this.getRedditPosts(topic);
 
 
         const compiledFunction = pug.compileFile(__dirname + '/pdfTemplate.pug');
@@ -96,7 +96,7 @@ export class NewsService {
 
         let options = { format: 'A4', localUrlAccess: true };
 
-        let pdfPath = '/tmp/zzz.pdf';
+        let pdfPath = `/tmp/${user.id+topic}.pdf`;
 
 
         
