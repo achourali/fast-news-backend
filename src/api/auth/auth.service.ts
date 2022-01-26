@@ -32,7 +32,7 @@ export class AuthService {
   async generateToken(user: User) {
     
     return {
-      accessToken: this.jwtService.sign({username:user.username,password:user.password}),
+      accessToken: this.jwtService.sign({username:user.username,password:user.password,email:user.email}),
     };
   }
 
