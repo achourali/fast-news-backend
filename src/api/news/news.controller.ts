@@ -15,7 +15,10 @@ export class NewsController {
   @Get(':topic')
   async getPdf(@Param('topic') topic,@Res() res,@Request() req) {
 
-    let pdfPath=await this.newsService.createPdf(topic,req.user);
+    let pdfName=req.user.id+topic;
+
+
+    let pdfPath=await this.newsService.createPdf(topic,pdfName);
     const file = createReadStream(join(pdfPath)); 
     file.pipe(res);
     
