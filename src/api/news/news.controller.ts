@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Post, Res, UseGuards,Request } from '@nestjs/common';
 import { createReadStream } from 'fs';
 import { join } from 'path';
 import { JwtAuthGuard } from '../auth/guards/jwt-guard';
@@ -12,11 +12,14 @@ import { NewsService } from './news.service';
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}
 
-  @Get(':keywords')
-  async getPdf(@Param('keywords') keywords,@Res() res) {
+  @Get(':topic')
+  async getPdf(@Param('topic') topic,@Res() res,@Request() req) {
 
-    let pdfPath=await this.newsService.createPdf(keywords);
-    const file = createReadStream(join(pdfPath));
+    let pdfName=req.user.id+topic;
+
+
+    let pdfPath=await this.newsService.createPdf(topic,pdfName);
+    const file = createReadStream(join(pdfPath)); 
     file.pipe(res);
     
      

@@ -8,7 +8,6 @@ import { UsersModule } from './api/users/users.module';
 import { AuthModule } from './api/auth/auth.module';
 import { NewsModule } from './api/news/news.module';
 
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -24,10 +23,9 @@ import { NewsModule } from './api/news/news.module';
     TypeOrmModule.forFeature([UserRepository]),
     UsersModule,
     AuthModule,
-    NewsModule
+    NewsModule,
   ],
   controllers: [AppController],
-  providers: [AppService,UserRepository],
-  
+  providers: [AppService, UserRepository],
 })
 export class AppModule {}
